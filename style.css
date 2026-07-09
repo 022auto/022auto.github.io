@@ -1,0 +1,53 @@
+/* Global styles */
+html { scroll-behavior: smooth; }
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Minimalist scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #E31E24; border-radius: 3px; }
+
+/* Glassmorphism nav */
+.nav-blur {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Form input focus state */
+.form-input:focus {
+  outline: none;
+  border-color: #E31E24 !important;
+  box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.1);
+}
+
+/* Button hover animation */
+.btn-primary {
+  background-color: #E31E24;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-primary:hover {
+  background-color: #C01A1F;
+  transform: translateY(-2px);
+}
+
+/* Brand Card hover */
+.brand-card {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.brand-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(227, 30, 36, 0.5);
+}
+
+/* Fade-in Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
