@@ -66,11 +66,8 @@ if (orderForm) {
     const name = document.getElementById('field-name').value.trim();
     const phone = document.getElementById('field-phone').value.trim();
     const car = document.getElementById('field-car').value.trim();
-    const vinInput = document.getElementById('field-vin').value.trim();
+    const vin = document.getElementById('field-vin').value.trim();
     const parts = document.getElementById('field-parts').value.trim();
-
-    // Fallback for optional VIN code
-    const vin = vinInput ? vinInput : "Qeyd olunmayıb";
 
     // Construct the structured WhatsApp message
     const message = `*Yeni Sifariş! 🚘*\n\n` +
