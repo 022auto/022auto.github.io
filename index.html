@@ -223,9 +223,9 @@
               <label
                 class="block text-xs font-semibold tracking-widest uppercase dark:text-neutral-400 text-neutral-500 mb-2"
                 data-az="Telefon Nömrəsi" data-en="Phone Number">Telefon Nömrəsi</label>
-              <input type="tel" id="field-phone"
+              <input type="tel" id="order-phone"
                 class="form-input w-full bg-transparent border-b-2 dark:border-neutral-700 border-gray-300 py-3 text-sm transition-colors dark:text-white text-black"
-                placeholder="+994" required>
+                placeholder="+994" maxlength="13" pattern="^\+?[0-9]{12}$" required>
             </div>
           </div>
 
@@ -246,7 +246,7 @@
                 <span data-az="VIN Kod" data-en="VIN Code">VIN Kod</span>
               </label>
               <input type="text" id="field-vin"
-                class="form-input w-full bg-transparent border-b-2 dark:border-neutral-700 border-gray-300 py-3 text-sm transition-colors dark:text-white text-black uppercase" required>
+                class="form-input w-full bg-transparent border-b-2 dark:border-neutral-700 border-gray-300 py-3 text-sm transition-colors dark:text-white text-black uppercase" minlength="17" maxlength="17" required>
             </div>
           </div>
 
