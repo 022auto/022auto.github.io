@@ -97,6 +97,24 @@ if (phoneInput) {
   });
 }
 
+const vinInput = document.getElementById('order-vin');
+
+if (vinInput) {
+  // Live filtering: Only allow alphanumeric characters and force uppercase
+  vinInput.addEventListener('input', function (e) {
+    let value = e.target.value;
+    
+    // Strip everything that is not a letter or digit
+    value = value.replace(/[^A-Za-z0-9]/g, '');
+    
+    // Convert to uppercase instantly
+    value = value.toUpperCase();
+    
+    // Update the input field visually
+    e.target.value = value;
+  });
+}
+
 if (orderForm) {
   orderForm.addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent default page reload
@@ -105,12 +123,13 @@ if (orderForm) {
     const name = document.getElementById('field-name').value.trim();
     const phone = document.getElementById('order-phone').value.trim();
     const car = document.getElementById('field-car').value.trim();
-    const vin = document.getElementById('field-vin').value.trim().toUpperCase(); // VIN is now strictly required and uppercase
+    const vin = document.getElementById('order-vin').value.trim().toUpperCase(); // Fetching via the updated ID
     const parts = document.getElementById('field-parts').value.trim();
 
-    // Double-check VIN Code length
-    if (vin.length !== 17) {
-      alert("Zəhmət olmasa VIN kodu düzgün daxil edin. VIN kod tam 17 simvoldan ibarət olmalıdır!");
+    // Double-check VIN Code validity (strictly 17 alphanumeric characters)
+    const vinRegex = /^[A-Za-z0-9]{17}$/;
+    if (!vinRegex.test(vin)) {
+      alert("Zəhmət olmasa VIN kodu düzgün daxil edin. VIN kod tam 17 simvoldan (hərf və rəqəm) ibarət olmalıdır!");
       return;
     }
 
