@@ -57,6 +57,45 @@ document.querySelectorAll('.fade-in').forEach(el => {
 
 // --- WhatsApp Order Submission Logic ---
 const orderForm = document.getElementById('order-form');
+const phoneInput = document.getElementById('order-phone');
+
+if (phoneInput) {
+  // Auto-fill on focus if empty
+  phoneInput.addEventListener('focus', function (e) {
+    if (e.target.value.trim() === '') {
+      e.target.value = '+994';
+    }
+  });
+
+  // Clear on blur if only '+994' is present
+  phoneInput.addEventListener('blur', function (e) {
+    if (e.target.value.trim() === '+994') {
+      e.target.value = '';
+    }
+  });
+
+  // Live filtering: Enforce '+994' prefix and strip non-numeric characters
+  phoneInput.addEventListener('input', function (e) {
+    let value = e.target.value;
+    
+    // If the value doesn't start with '+994', force it
+    if (!value.startsWith('+994')) {
+      // Extract numbers they might have typed/pasted
+      let numbersOnly = value.replace(/[^\d]/g, '');
+      // Prevent duplication of '994' if they pasted a full number
+      if (numbersOnly.startsWith('994')) {
+        numbersOnly = numbersOnly.substring(3);
+      }
+      value = '+994' + numbersOnly;
+    }
+    
+    // Keep '+994' intact and strictly allow only digits after it
+    const prefix = '+994';
+    const remainder = value.substring(prefix.length).replace(/[^\d]/g, '');
+    
+    e.target.value = prefix + remainder;
+  });
+}
 
 if (orderForm) {
   orderForm.addEventListener('submit', function (e) {
@@ -64,10 +103,23 @@ if (orderForm) {
 
     // Extract values from form inputs
     const name = document.getElementById('field-name').value.trim();
-    const phone = document.getElementById('field-phone').value.trim();
+    const phone = document.getElementById('order-phone').value.trim();
     const car = document.getElementById('field-car').value.trim();
-    const vin = document.getElementById('field-vin').value.trim();
+    const vin = document.getElementById('field-vin').value.trim().toUpperCase(); // VIN is now strictly required and uppercase
     const parts = document.getElementById('field-parts').value.trim();
+
+    // Double-check VIN Code length
+    if (vin.length !== 17) {
+      alert("Zəhmət olmasa VIN kodu düzgün daxil edin. VIN kod tam 17 simvoldan ibarət olmalıdır!");
+      return;
+    }
+
+    // Double-check Phone validity before submission
+    const phoneRegex = /^\+?[0-9]{12}$/;
+    if (!phoneRegex.test(phone)) {
+      alert("Zəhmət olmasa telefon nömrəsini düzgün daxil edin (Məs: +994508005433).");
+      return;
+    }
 
     // Construct the structured WhatsApp message
     const message = `*Yeni Sifariş! 🚘*\n\n` +
